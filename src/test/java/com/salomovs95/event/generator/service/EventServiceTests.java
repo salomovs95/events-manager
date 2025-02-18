@@ -37,9 +37,15 @@ class EventServiceTests {
 
 	@Test
 	void CREATE_EVENT_SUCCEEDS() {
-    LocalDate TODAY= LocalDate.now();
-    LocalTime NOW = LocalTime.now();
-    CreateEventDto mDto = new CreateEventDto("Event Title One", TODAY, TODAY.plusDays(2), NOW.plusHours(3), NOW.plusHours(8));
+    CreateEventDto mDto = new CreateEventDto(
+      "Event Title One",
+      3999,
+      "Santa Luzia - Parana / Brazil",
+      LocalDate.now(),
+      LocalDate.now().plusDays(2),
+      LocalTime.now(),
+      LocalTime.now().plusHours(8)
+    );
     assertDoesNotThrow(()->eService.create(mDto));
 	}
 
@@ -52,18 +58,29 @@ class EventServiceTests {
 
   @Test
   void CREATE_EVENT_FAILS_INVALID_DATE_PERIOD() {
-    LocalDate startDate = LocalDate.now().plusDays(10);
-    LocalTime startTime = LocalTime.now().plusHours(1);
-    CreateEventDto mDto = new CreateEventDto("Event Title Two", startDate, startDate.minusDays(2), startTime, startTime.plusHours(5));
+    CreateEventDto mDto = new CreateEventDto(
+      "Event Title Two",
+      3999,
+      "Santa Luzia - Parana / Brazil",
+      LocalDate.now(),
+      LocalDate.now().minusDays(2),
+      LocalTime.now(),
+      LocalTime.now().plusHours(5)
+    );
     Exception exception = assertThrows(Exception.class, ()->eService.create(mDto));
     assertEquals("Invalid event period", exception.getMessage());
   }
 
   @Test
   void CREATE_EVENT_FAILS_INVALID_TIME_PERIOD() {
-    LocalDate startDate = LocalDate.now().plusDays(2);
-    LocalTime startTime = LocalTime.now().plusHours(2);
-    CreateEventDto mDto = new CreateEventDto("Event Title Three", startDate, startDate.plusDays(3), startTime, startTime.minusHours(5));
+    CreateEventDto mDto = new CreateEventDto(
+      "Event Title Three",
+      3999,
+      "Santa Luzia - Parana / Brazil",
+      LocalDate.now(),
+      LocalDate.now().plusDays(3),
+      LocalTime.now(),
+      LocalTime.now().minusHours(5));
     Exception exception = assertThrows(Exception.class, ()->eService.create(mDto));
     assertEquals("Invalid event duration", exception.getMessage());
   }
@@ -74,10 +91,12 @@ class EventServiceTests {
       19884382,
       "Event Title One",
       "event-title-one",
-      null,
-      null,
-      null,
-      null
+      3999,
+      "Santa Luzia - Parana / Brazil",
+      LocalDate.now(),
+      LocalDate.now().plusDays(3),
+      LocalTime.now(),
+      LocalTime.now().plusHours(6)
     )));
     assertTrue(eService.findEvent("event-title-one").isPresent());
   }

@@ -20,7 +20,7 @@ public class EventService {
   public EventEntity create(CreateEventDto dto) throws Exception {
     if (dto == null) throw new Exception("Invalid data provided");
     if (dto.startDate().isAfter(dto.endDate())) throw new Exception("Invalid event period");
-    if (dto.startDate().isBefore(dto.endDate()) && dto.startTime().isAfter(dto.endTime())) throw new Exception("Invalid event duration");
+    if (dto.startTime().isAfter(dto.endTime())) throw new Exception("Invalid event duration");
 
     String prettyName = dto.title().toLowerCase().replaceAll(" ", "-");
     Optional<EventEntity> eventToBe = eventRepository.findByPrettyName(prettyName);
@@ -31,6 +31,8 @@ public class EventService {
       null,
       dto.title(),
       prettyName,
+      dto.price(),
+      dto.location(),
       dto.startDate(),
       dto.endDate(),
       dto.startTime(),

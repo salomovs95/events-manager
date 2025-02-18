@@ -21,6 +21,12 @@ public class EventEntity {
   @Column(name="pretty_name", nullable=false, unique=true)
   private String prettyName;
 
+  @Column(nullable=false)
+  private Integer price;
+
+  @Column(nullable=false)
+  private String location;
+
   @Column(name="start_date", nullable=false)
   private LocalDate startDate;
 
@@ -40,6 +46,8 @@ public class EventEntity {
   public LocalDate getEndDate() { return endDate; }
   public LocalTime getStartTime() { return startTime; }
   public LocalTime getEndTime() { return endTime; }
+  public Integer getPrice() { return price; }
+  public String getLocation() { return location; }
 
   public void setId(Integer id) { this.id = id; }
   public void setTitle(String title) { this.title = title; }
@@ -48,13 +56,17 @@ public class EventEntity {
   public void setEndDate(LocalDate endDate) { this.endDate = endDate; }
   public void setStartTime(LocalTime startTime) { this.startTime = startTime; }
   public void setEndTime(LocalTime endTime) { this.endTime = endTime; }
+  public void setPrice(Integer price) { this.price = price; }
+  public void setLocation(String location) { this.location = location; }
 
   public EventEntity() {}
 
-  public EventEntity(Integer id, String title, String prettyName, LocalDate startDate, LocalDate endDate, LocalTime startTime, LocalTime endTime) {
+  public EventEntity(Integer id, String title, String prettyName, Integer price, String location, LocalDate startDate, LocalDate endDate, LocalTime startTime, LocalTime endTime) {
     this.id = id;
     this.title = title;
     this.prettyName = prettyName;
+    this.price = price;
+    this.location = location;
     this.startDate = startDate;
     this.endDate = endDate;
     this.startTime = startTime;
