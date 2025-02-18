@@ -1,0 +1,47 @@
+  { "name": "Tony Stark", "email": "tony.stark@starkindustries.com" }
+  { "name": "Bruce Wayne", "email": "bruce.wayne@wayneenterprises.com" }
+  { "name": "Clark Kent", "email": "clark.kent@dailyplanet.com" }
+  { "name": "Diana Prince", "email": "diana.prince@themyscira.com" }
+  { "name": "Steve Rogers", "email": "steve.rogers@avengers.com" }
+  { "name": "Natasha Romanoff", "email": "natasha.romanoff@shield.com" }
+  { "name": "Thor Odinson", "email": "thor.odinson@asgard.com" }
+  { "name": "Bruce Banner", "email": "bruce.banner@avengers.com" }
+  { "name": "Wanda Maximoff", "email": "wanda.maximoff@avengers.com" }
+  { "name": "Stephen Strange", "email": "stephen.strange@sanctumsanctorum.com" }
+  { "name": "Barry Allen", "email": "barry.allen@star-labs.com" }
+  { "name": "Arthur Curry", "email": "arthur.curry@atlantis.com" }
+  { "name": "Hal Jordan", "email": "hal.jordan@greenlanterncorps.com" }
+  { "name": "Scott Lang", "email": "scott.lang@pymtech.com" }
+  { "name": "Jean Grey", "email": "jean.grey@xavierinstitute.com" }
+  { "name": "Logan", "email": "logan@x-men.com" }
+  { "name": "Ororo Munroe", "email": "ororo.munroe@x-men.com" }
+  { "name": "Charles Xavier", "email": "charles.xavier@xavierinstitute.com" }
+  { "name": "Erik Lehnsherr", "email": "erik.lehnsherr@brotherhood.com" }
+  { "name": "Bucky Barnes", "email": "bucky.barnes@hydra.com" }
+  { "name": "Sam Wilson", "email": "sam.wilson@avengers.com" }
+  { "name": "Carol Danvers", "email": "carol.danvers@starforce.com" }
+  { "name": "Matt Murdock", "email": "matt.murdock@hellskitchen.com" }
+  { "name": "Frank Castle", "email": "frank.castle@punisher.com" }
+  { "name": "Jessica Jones", "email": "jessica.jones@aliasinvestigations.com" }
+  { "name": "Luke Cage", "email": "luke.cage@harlem.com" }
+  { "name": "Danny Rand", "email": "danny.rand@randenterprises.com" }
+  { "name": "Victor Stone", "email": "victor.stone@star-labs.com" }
+  { "name": "Slade Wilson", "email": "slade.wilson@mercenary.com" }
+  { "name": "Selina Kyle", "email": "selina.kyle@gotham.com" }
+  { "name": "Harley Quinn", "email": "harley.quinn@arkham.com" }
+  { "name": "Eddie Brock", "email": "eddie.brock@dailyglobe.com" }
+  { "name": "Norman Osborn", "email": "norman.osborn@oscorp.com" }
+  { "name": "Otto Octavius", "email": "otto.octavius@oscorp.com" }
+  { "name": "Reed Richards", "email": "reed.richards@baxterbuilding.com" }
+  { "name": "Sue Storm", "email": "sue.storm@baxterbuilding.com" }
+  { "name": "Johnny Storm", "email": "johnny.storm@baxterbuilding.com" }
+  { "name": "Ben Grimm", "email": "ben.grimm@baxterbuilding.com" }
+  { "name": "Oliver Queen", "email": "oliver.queen@queenindustries.com" }
+  { "name": "John Constantine", "email": "john.constantine@hellblazer.com" }
+  { "name": "Raven", "email": "raven@azarath.com" }
+  { "name": "Beast Boy", "email": "beast.boy@titanstower.com" }
+  { "name": "Cyborg", "email": "cyborg@titanstower.com" }
+  { "name": "Deadpool", "email": "wade.wilson@deadpool.com" }
+  { "name": "Rocket Raccoon", "email": "rocket.raccoon@guardians.com" }
+  { "name": "Groot", "email": "groot@iamgroot.com" }
+
