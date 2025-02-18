@@ -1,0 +1,5 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/db_event_gen
+    username: nlwconnect
+    password: nlw@c0nn3c7

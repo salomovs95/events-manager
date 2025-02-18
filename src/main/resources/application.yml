@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: Event Generator
+
+  profiles:
+    active: develop
+
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
