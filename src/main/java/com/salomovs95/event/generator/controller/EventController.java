@@ -1,13 +1,52 @@
 package com.salomovs95.event.generator.controller;
 
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.salomovs95.event.generator.dto.CreateEventDto;
+import com.salomovs95.event.generator.entity.EventEntity;
 import com.salomovs95.event.generator.service.EventService;
 
-import lombok.RequiredArgsConstructor;
-
-@RestController @RequestMapping("/events") @RequiredArgsConstructor
+@RestController @RequestMapping("/events")
 public class EventController {
-  private EventService eventService;
+  private final EventService eventService;
+  private Logger logg;
+
+  public EventController(final EventService service) {
+    this.eventService = service;
+    this.logg = LoggerFactory.getLogger(EventController.class);
+  }
+
+  @PostMapping("/")
+  public ResponseEntity<EventEntity> helloWorld(@RequestBody CreateEventDto dto) {
+    try {
+      EventEntity event = eventService.create(dto);
+      return ResponseEntity.status(201).body(event);
+    } catch(Exception e) {
+      logg.error("Cannot create event." + e.getStackTrace());
+      return ResponseEntity.status(400).body(null);
+    }
+  }
+
+  @GetMapping("/")
+  public ResponseEntity<List<EventEntity>> listAllEvents() {
+    return ResponseEntity.status(200).body(eventService.findAll());
+  }
+
+  @GetMapping("/{prettyName}")
+  public ResponseEntity<EventEntity> findEventByPrettyName(@PathVariable String prettyName) {
+    logg.info(String.format("Searching an event with params <prettyName: %s>", prettyName));
+    EventEntity event = eventService.findEvent(prettyName).orElse(null);
+    return ResponseEntity.status(event==null?404:200).body(event);
+  }
 }
