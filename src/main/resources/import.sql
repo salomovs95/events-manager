@@ -54,21 +54,21 @@ DEFAULT CHARACTER SET = utf8mb3;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `db_event_gen`.`tbl_subscriptions` (
   `subscription_number` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `subscribed_user_id` INT UNSIGNED NOT NULL,
-  `indication_user_id` INT UNSIGNED NULL DEFAULT NULL,
+  `subscriber_id` INT UNSIGNED NOT NULL,
+  `referral_id` INT UNSIGNED NULL DEFAULT NULL,
   `event_id` INT NOT NULL,
   PRIMARY KEY (`subscription_number`),
-  INDEX `fk_tbl_subscription_tbl_user_idx` (`subscribed_user_id` ASC) VISIBLE,
-  INDEX `fk_tbl_subscription_tbl_user1_idx` (`indication_user_id` ASC) VISIBLE,
+  INDEX `fk_tbl_subscription_tbl_user_idx` (`subscriber_id` ASC) VISIBLE,
+  INDEX `fk_tbl_subscription_tbl_user1_idx` (`referral_id` ASC) VISIBLE,
   INDEX `fk_tbl_subscription_tbl_event1_idx` (`event_id` ASC) VISIBLE,
   CONSTRAINT `fk_tbl_subscription_tbl_event1`
     FOREIGN KEY (`event_id`)
     REFERENCES `db_event_gen`.`tbl_events` (`id`),
   CONSTRAINT `fk_tbl_subscription_tbl_user`
-    FOREIGN KEY (`subscribed_user_id`)
+    FOREIGN KEY (`subscriberr_id`)
     REFERENCES `db_event_gen`.`tbl_users` (`id`),
   CONSTRAINT `fk_tbl_subscription_tbl_user1`
-    FOREIGN KEY (`indication_user_id`)
+    FOREIGN KEY (`referral_id`)
     REFERENCES `db_event_gen`.`tbl_users` (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb3;

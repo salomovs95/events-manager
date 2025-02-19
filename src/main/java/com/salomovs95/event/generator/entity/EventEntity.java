@@ -61,7 +61,16 @@ public class EventEntity {
 
   public EventEntity() {}
 
-  public EventEntity(Integer id, String title, String prettyName, Integer price, String location, LocalDate startDate, LocalDate endDate, LocalTime startTime, LocalTime endTime) {
+  public EventEntity(
+      Integer id,
+      String title,
+      String prettyName,
+      Integer price,
+      String location,
+      LocalDate startDate,
+      LocalDate endDate,
+      LocalTime startTime,
+      LocalTime endTime) {
     this.id = id;
     this.title = title;
     this.prettyName = prettyName;

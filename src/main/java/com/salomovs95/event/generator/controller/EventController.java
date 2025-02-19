@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.salomovs95.event.generator.dto.CreateEventDto;
+import com.salomovs95.event.generator.dto.ErrorMessage;
 import com.salomovs95.event.generator.entity.EventEntity;
+import com.salomovs95.event.generator.exception.EventCreationException;
 import com.salomovs95.event.generator.service.EventService;
 
 @RestController @RequestMapping("/events")
@@ -28,13 +30,16 @@ public class EventController {
   }
 
   @PostMapping("/")
-  public ResponseEntity<EventEntity> helloWorld(@RequestBody CreateEventDto dto) {
+  public ResponseEntity<?> helloWorld(@RequestBody CreateEventDto dto) {
     try {
       EventEntity event = eventService.create(dto);
       return ResponseEntity.status(201).body(event);
+    } catch(EventCreationException e) {
+      logg.error("Cannot create event. " + e.getStackTrace());
+      return ResponseEntity.status(400).body(new ErrorMessage(e.getMessage()));
     } catch(Exception e) {
-      logg.error("Cannot create event." + e.getStackTrace());
-      return ResponseEntity.status(400).body(null);
+      logg.error("Cannot create event. " + e.getStackTrace());
+      return ResponseEntity.status(500).body(new ErrorMessage(e.getMessage()));
     }
   }
 
