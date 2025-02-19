@@ -11,7 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.salomovs95.event.generator.dto.CreateUserDto;
+import com.salomovs95.event.generator.dto.ErrorMessage;
 import com.salomovs95.event.generator.dto.SubscriptionResponse;
+import com.salomovs95.event.generator.exception.EventNotFoundException;
+import com.salomovs95.event.generator.exception.SubscriptionAlreadyExistsException;
 import com.salomovs95.event.generator.service.SubscriptionService;
 
 @RestController @RequestMapping("/subscriptions")
@@ -25,7 +28,7 @@ public class SubscriptionController {
   }
 
   @PostMapping({"/{prettyName}", "/{prettyName}/{referralId}"})
-  public ResponseEntity<SubscriptionResponse> getHostUrl(@PathVariable String prettyName, @PathVariable Integer referralId, @RequestBody CreateUserDto body) {
+  public ResponseEntity<?> getHostUrl(@PathVariable String prettyName, @PathVariable Integer referralId, @RequestBody CreateUserDto body) {
     if (referralId == null) {
       referralId = -1;
     }
@@ -37,9 +40,15 @@ public class SubscriptionController {
         body.username(),
         body.email());
       return ResponseEntity.ok().body(response);
+    } catch(EventNotFoundException e) {
+      logg.error(String.format("Error while subscribing to event %s", prettyName) + e.getStackTrace());
+      return ResponseEntity.status(404).body(new ErrorMessage(e.getMessage()));
+    } catch(SubscriptionAlreadyExistsException e) {
+      logg.error(String.format("Error while subscribing to event %s", prettyName) + e.getStackTrace());
+      return ResponseEntity.status(400).body(new ErrorMessage(e.getMessage()));
     } catch (Exception e) {
       logg.error(String.format("Error while subscribing to event %s", prettyName) + e.getStackTrace());
-      return ResponseEntity.badRequest().build();
+      return ResponseEntity.status(500).body(new ErrorMessage(e.getMessage()));
     }
   }
 }

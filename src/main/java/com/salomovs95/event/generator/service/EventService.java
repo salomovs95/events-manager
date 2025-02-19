@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.salomovs95.event.generator.dto.CreateEventDto;
 import com.salomovs95.event.generator.entity.EventEntity;
+import com.salomovs95.event.generator.exception.EventCreationException;
 import com.salomovs95.event.generator.repository.EventRepository;
 
 @Service
@@ -18,9 +19,9 @@ public class EventService {
   }
 
   public EventEntity create(CreateEventDto dto) throws Exception {
-    if (dto == null) throw new Exception("Invalid data provided");
-    if (dto.startDate().isAfter(dto.endDate())) throw new Exception("Invalid event period");
-    if (dto.startTime().isAfter(dto.endTime())) throw new Exception("Invalid event duration");
+    if (dto == null) throw new EventCreationException("Invalid data provided");
+    if (dto.startDate().isAfter(dto.endDate())) throw new EventCreationException("Invalid event period");
+    if (dto.startTime().isAfter(dto.endTime())) throw new EventCreationException("Invalid event duration");
 
     String prettyName = dto.title().toLowerCase().replaceAll(" ", "-");
     Optional<EventEntity> eventToBe = eventRepository.findByPrettyName(prettyName);

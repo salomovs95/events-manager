@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
@@ -12,6 +13,7 @@ import java.time.LocalTime;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
@@ -23,6 +25,7 @@ import com.salomovs95.event.generator.dto.CreateEventDto;
 import com.salomovs95.event.generator.entity.EventEntity;
 import com.salomovs95.event.generator.repository.EventRepository;
 
+@Tag("EVENT_TESTS")
 @SpringBootTest @TestInstance(Lifecycle.PER_CLASS)
 class EventServiceTests {
 

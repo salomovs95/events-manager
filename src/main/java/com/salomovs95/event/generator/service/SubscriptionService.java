@@ -8,6 +8,8 @@ import com.salomovs95.event.generator.repository.SubscriptionRepository;
 import com.salomovs95.event.generator.entity.EventEntity;
 import com.salomovs95.event.generator.entity.SubscriptionEntity;
 import com.salomovs95.event.generator.entity.UserEntity;
+import com.salomovs95.event.generator.exception.EventNotFoundException;
+import com.salomovs95.event.generator.exception.SubscriptionAlreadyExistsException;
 import com.salomovs95.event.generator.repository.EventRepository;
 import com.salomovs95.event.generator.repository.UserRepository;
 
@@ -28,13 +30,13 @@ public class SubscriptionService {
   }
 
   public SubscriptionResponse subscribe(String eventPrettyName, Integer referralId, String subscriberName, String subscriberEmail) throws Exception {
-    EventEntity event = eventRepo.findByPrettyName(eventPrettyName).orElseThrow(()->new Exception(String.format("Event not found with pretty name: %s", eventPrettyName)));
+    EventEntity event = eventRepo.findByPrettyName(eventPrettyName).orElseThrow(()->new EventNotFoundException(String.format("Event not found with pretty name: %s", eventPrettyName)));
     
     UserEntity subscriber = userRepo.findByEmail(subscriberEmail)
       .orElse(userRepo.save(new UserEntity(null, subscriberName, subscriberEmail)));
 
     if (subscriptionRepo.findByEventAndSubscriber(event, subscriber).isPresent()) {
-      throw new Exception(String.format("User '%s' already subscribed for event '%s'", subscriberName, event.getTitle()));
+      throw new SubscriptionAlreadyExistsException(String.format("User '%s' already subscribed for event '%s'", subscriberName, event.getTitle()));
     }
 
     UserEntity referral = userRepo.findById(referralId).orElse(null);
