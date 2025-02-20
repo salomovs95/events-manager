@@ -1,5 +1,7 @@
 package com.salomovs95.event.generator.service;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,8 +22,8 @@ public class EventService {
 
   public EventEntity create(CreateEventDto dto) throws Exception {
     if (dto == null) throw new EventCreationException("Invalid data provided");
-    if (dto.startDate().isAfter(dto.endDate())) throw new EventCreationException("Invalid event period");
-    if (dto.startTime().isAfter(dto.endTime())) throw new EventCreationException("Invalid event duration");
+
+    validateEventPeriod(dto.startDate(), dto.endDate(), dto.startTime(), dto.endTime());
 
     String prettyName = dto.title().toLowerCase().replaceAll(" ", "-");
     Optional<EventEntity> eventToBe = eventRepository.findByPrettyName(prettyName);
@@ -55,4 +57,16 @@ public class EventService {
     return eventRepository.findAll();
   }
 
+  private void validateEventPeriod(LocalDate startDate,
+                                   LocalDate endDate,
+                                   LocalTime startTime,
+                                   LocalTime endTime) throws Exception {
+    final LocalDate TODAY = LocalDate.now();
+    final LocalTime NOW = LocalTime.now();
+
+    if (startDate.isBefore(TODAY) || endDate.isBefore(TODAY)) throw new EventCreationException("Past events are not allowed");
+    if (startTime.isBefore(NOW) || endTime.isBefore(NOW)) throw new EventCreationException("Past events are not allowed");
+    if (startDate.isAfter(endDate)) throw new EventCreationException("Invalid event period");
+    if (startTime.isAfter(endTime)) throw new EventCreationException("Invalid event duration");
+  }
 }

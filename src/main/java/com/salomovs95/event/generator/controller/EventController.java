@@ -29,7 +29,7 @@ public class EventController {
     this.logg = LoggerFactory.getLogger(EventController.class);
   }
 
-  @PostMapping("/")
+  @PostMapping("")
   public ResponseEntity<?> helloWorld(@RequestBody CreateEventDto dto) {
     try {
       EventEntity event = eventService.create(dto);
@@ -43,7 +43,7 @@ public class EventController {
     }
   }
 
-  @GetMapping("/")
+  @GetMapping("")
   public ResponseEntity<List<EventEntity>> listAllEvents() {
     return ResponseEntity.status(200).body(eventService.findAll());
   }

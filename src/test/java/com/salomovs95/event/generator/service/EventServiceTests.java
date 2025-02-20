@@ -23,6 +23,7 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import com.salomovs95.event.generator.dto.CreateEventDto;
 import com.salomovs95.event.generator.entity.EventEntity;
+import com.salomovs95.event.generator.exception.EventCreationException;
 import com.salomovs95.event.generator.repository.EventRepository;
 
 @Tag("EVENT_TESTS")
@@ -107,6 +108,22 @@ class EventServiceTests {
   @Test
   void FIND_EVENT_BY_PRETTY_NAME_FAILS() {
     assertTrue(eService.findEvent("event-title-one").isEmpty());
+  }
+
+  @Test
+  void CREATE_PAST_EVENT_FALLS() {
+    CreateEventDto mDto = new CreateEventDto(
+      "title",
+      9,
+      "location",
+      LocalDate.now().minusDays(3),
+      LocalDate.now().plusDays(1),
+      LocalTime.now().plusHours(1),
+      LocalTime.now().plusHours(6)
+    );
+
+    EventCreationException ex = assertThrows(EventCreationException.class, ()->eService.create(mDto));
+    assertEquals("Past events are not allowed", ex.getMessage());
   }
 
 }
