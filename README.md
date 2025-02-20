@@ -84,8 +84,11 @@ git clone https://github.com/salomovs95/events-manager && cd my-events-manager
 **02 - Running the Project**
 
 ```bash
-# Only if not using mysql-server yourself
+# Deploys datanase locally. Only if not using mysql-server yourself
 docker compose up -d
+```
+```bash
+./mvnw clean -Dmaven.skip.test spring-boot:run
 ```
 
 Now one can start making http request to [http://localhost:8080](http://localhost:8080), accordingly to _Controllers_ enpoints, using whatever Rest Client one may choose.
