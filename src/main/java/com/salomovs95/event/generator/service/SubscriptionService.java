@@ -65,12 +65,13 @@ public class SubscriptionService {
   }
 
   public SubscriptionRankingByUser retrieveRankingByUser(String prettyName, Integer userId) throws Exception {
-    SubscriptionRankingItem ranking = retrieveRanking(prettyName)
+    List<SubscriptionRankingItem> overallRanking = retrieveRanking(prettyName);
+    SubscriptionRankingItem rankingByUser = overallRanking
       .stream()
       .filter(sub->sub.userId().equals(userId))
       .findFirst()
       .orElseThrow(()->new SubscriptionNotFoundException(String.format("No subscription in event %s was found for user %d", prettyName, userId)));
     
-    return new SubscriptionRankingByUser(1, ranking);
+    return new SubscriptionRankingByUser(1, rankingByUser);
   }
 }
