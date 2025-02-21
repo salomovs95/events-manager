@@ -4,12 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -45,11 +43,9 @@ class EventServiceTests {
       "Event Title One",
       3999,
       "Santa Luzia - Parana / Brazil",
-      LocalDate.now(),
-      LocalDate.now().plusDays(2),
-      LocalTime.now(),
-      LocalTime.now().plusHours(8)
-    );
+      LocalDate.now().plusDays(3),
+      LocalDate.now().plusDays(8));
+
     assertDoesNotThrow(()->eService.create(mDto));
 	}
 
@@ -67,10 +63,7 @@ class EventServiceTests {
       3999,
       "Santa Luzia - Parana / Brazil",
       LocalDate.now(),
-      LocalDate.now().minusDays(2),
-      LocalTime.now(),
-      LocalTime.now().plusHours(5)
-    );
+      LocalDate.now().minusDays(2));
     Exception exception = assertThrows(Exception.class, ()->eService.create(mDto));
     assertEquals("Invalid event period", exception.getMessage());
   }
@@ -81,12 +74,10 @@ class EventServiceTests {
       "Event Title Three",
       3999,
       "Santa Luzia - Parana / Brazil",
-      LocalDate.now(),
       LocalDate.now().plusDays(3),
-      LocalTime.now(),
-      LocalTime.now().minusHours(5));
+      LocalDate.now().plusDays(12));
     Exception exception = assertThrows(Exception.class, ()->eService.create(mDto));
-    assertEquals("Invalid event duration", exception.getMessage());
+    assertEquals("Invalid event period", exception.getMessage());
   }
 
   @Test
@@ -97,10 +88,8 @@ class EventServiceTests {
       "event-title-one",
       3999,
       "Santa Luzia - Parana / Brazil",
-      LocalDate.now(),
-      LocalDate.now().plusDays(3),
-      LocalTime.now(),
-      LocalTime.now().plusHours(6)
+      LocalDate.now().plusDays(7),
+      LocalDate.now().plusDays(12)
     )));
     assertTrue(eService.findEvent("event-title-one").isPresent());
   }
@@ -117,13 +106,10 @@ class EventServiceTests {
       9,
       "location",
       LocalDate.now().minusDays(3),
-      LocalDate.now().plusDays(1),
-      LocalTime.now().plusHours(1),
-      LocalTime.now().plusHours(6)
-    );
+      LocalDate.now().plusDays(1));
 
     EventCreationException ex = assertThrows(EventCreationException.class, ()->eService.create(mDto));
-    assertEquals("Past events are not allowed", ex.getMessage());
+    assertEquals("Invalid event period", ex.getMessage());
   }
 
 }

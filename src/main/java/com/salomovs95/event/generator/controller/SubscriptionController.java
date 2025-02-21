@@ -1,6 +1,7 @@
 package com.salomovs95.event.generator.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,15 +35,15 @@ public class SubscriptionController {
   }
 
   @PostMapping({"/{prettyName}", "/{prettyName}/{referralId}"})
-  public ResponseEntity<?> getHostUrl(@PathVariable String prettyName, @PathVariable Integer referralId, @RequestBody CreateUserDto body) {
-    if (referralId == null) {
-      referralId = -1;
+  public ResponseEntity<?> getHostUrl(@PathVariable String prettyName, @PathVariable Optional<Integer> referralId, @RequestBody CreateUserDto body) {
+    if (referralId.isEmpty()) {
+      referralId = Optional.of(-1);
     }
 
     try {
       SubscriptionResponse response = subscriptionService.subscribe(
         prettyName,
-        referralId,
+        referralId.get(),
         body.username(),
         body.email()
       );

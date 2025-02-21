@@ -1,7 +1,10 @@
 package com.salomovs95.event.generator.service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,7 +26,16 @@ public class EventService {
   public EventEntity create(CreateEventDto dto) throws Exception {
     if (dto == null) throw new EventCreationException("Invalid data provided");
 
-    validateEventPeriod(dto.startDate(), dto.endDate(), dto.startTime(), dto.endTime());
+    final LocalDate startDate = dto.startDate(), endDate = dto.endDate();
+    System.out.println(
+      "Date is invalid: " + (
+      startDate.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli() <=
+      endDate.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli()
+    ));
+
+    if (startDate.isBefore(LocalDate.now()) || endDate.isBefore(LocalDate.now()) || startDate.isBefore(endDate)) {
+      throw new EventCreationException("Invalid event period");
+    }
 
     String prettyName = dto.title().toLowerCase().replaceAll(" ", "-");
     Optional<EventEntity> eventToBe = eventRepository.findByPrettyName(prettyName);
@@ -36,10 +48,8 @@ public class EventService {
       prettyName,
       dto.price(),
       dto.location(),
-      dto.startDate(),
-      dto.endDate(),
-      dto.startTime(),
-      dto.endTime()
+      startDate,
+      endDate
     ));
 
     return event;
@@ -55,18 +65,5 @@ public class EventService {
 
   public List<EventEntity> findAll() {
     return eventRepository.findAll();
-  }
-
-  private void validateEventPeriod(LocalDate startDate,
-                                   LocalDate endDate,
-                                   LocalTime startTime,
-                                   LocalTime endTime) throws Exception {
-    final LocalDate TODAY = LocalDate.now();
-    final LocalTime NOW = LocalTime.now();
-
-    if (startDate.isBefore(TODAY) || endDate.isBefore(TODAY)) throw new EventCreationException("Past events are not allowed");
-    if (startTime.isBefore(NOW) || endTime.isBefore(NOW)) throw new EventCreationException("Past events are not allowed");
-    if (startDate.isAfter(endDate)) throw new EventCreationException("Invalid event period");
-    if (startTime.isAfter(endTime)) throw new EventCreationException("Invalid event duration");
   }
 }
