@@ -48,13 +48,13 @@ public class SubscriptionController {
       );
       return ResponseEntity.ok().body(response);
     } catch(EventNotFoundException e) {
-      logg.error(String.format("Error while subscribing to event %s", prettyName) + e.getStackTrace());
+      logg.error(String.format("Error while subscribing to event %s. ", prettyName) + e);
       return ResponseEntity.status(404).body(new ErrorMessage(e.getMessage()));
     } catch(SubscriptionAlreadyExistsException e) {
-      logg.error(String.format("Error while subscribing to event %s", prettyName) + e.getStackTrace());
+      logg.error(String.format("Error while subscribing to event %s. ", prettyName) + e);
       return ResponseEntity.status(400).body(new ErrorMessage(e.getMessage()));
     } catch (Exception e) {
-      logg.error(String.format("Error while subscribing to event %s", prettyName) + e.getStackTrace());
+      logg.error(String.format("Error while subscribing to event %s. ", prettyName) + e);
       return ResponseEntity.status(500).body(new ErrorMessage(e.getMessage()));
     }
   }
@@ -65,10 +65,10 @@ public class SubscriptionController {
       List<SubscriptionRankingItem> ranking = subscriptionService.retrieveRanking(prettyName);
       return ResponseEntity.status(200).body(ranking);
     } catch (EventNotFoundException e) {
-      logg.error(e.getMessage() + " " + e.getStackTrace());
+      logg.error(e.getMessage());
       return ResponseEntity.status(404).body(new ErrorMessage(e.getMessage()));
     } catch (Exception e) {
-      logg.error(e.getMessage() + " " + e.getStackTrace());
+      logg.error(e.getMessage());
       return ResponseEntity.status(500).body(new ErrorMessage(e.getMessage()));
     }
   }
@@ -79,10 +79,10 @@ public class SubscriptionController {
       SubscriptionRankingByUser ranking = subscriptionService.retrieveRankingByUser(prettyName, referralId);
       return ResponseEntity.status(200).body(ranking);
     } catch (SubscriptionNotFoundException e) {
-      logg.error(e.getMessage() + " " + e.getStackTrace());
+      logg.error(e.getMessage());
       return ResponseEntity.status(404).body(new ErrorMessage(e.getMessage()));
     } catch (Exception e) {
-      logg.error(e.getMessage() + " " + e.getStackTrace());
+      logg.error(e.getMessage());
       return ResponseEntity.status(500).body(new ErrorMessage(e.getMessage()));
     }
   }
