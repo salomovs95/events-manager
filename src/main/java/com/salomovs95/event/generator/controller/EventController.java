@@ -2,6 +2,8 @@ package com.salomovs95.event.generator.controller;
 
 import java.util.List;
 
+import io.swagger.v3.oas.annotations.Operation;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,8 +31,8 @@ public class EventController {
     this.logg = LoggerFactory.getLogger(EventController.class);
   }
 
-  @PostMapping("")
-  public ResponseEntity<?> helloWorld(@RequestBody CreateEventDto dto) {
+  @PostMapping("") @Operation(summary="Event Creation", description="Creates a new event.")
+  public ResponseEntity<?> createEvent(@RequestBody CreateEventDto dto) {
     try {
       EventEntity event = eventService.create(dto);
       return ResponseEntity.status(201).body(event);
@@ -43,12 +45,12 @@ public class EventController {
     }
   }
 
-  @GetMapping("")
+  @GetMapping("") @Operation(summary="Events Retrieval", description="Retrieves a list of available events.")
   public ResponseEntity<List<EventEntity>> listAllEvents() {
     return ResponseEntity.status(200).body(eventService.findAll());
   }
 
-  @GetMapping("/{prettyName}")
+  @GetMapping("/{prettyName}") @Operation(summary="Event Retrieval", description="Retrieves information about a given event.")
   public ResponseEntity<EventEntity> findEventByPrettyName(@PathVariable String prettyName) {
     logg.info(String.format("Searching an event with params <prettyName: %s>", prettyName));
     EventEntity event = eventService.findEvent(prettyName).orElse(null);
