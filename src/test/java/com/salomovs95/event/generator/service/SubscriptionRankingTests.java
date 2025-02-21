@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
+
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
@@ -49,7 +50,7 @@ public class SubscriptionRankingTests {
   @Test
   void RETRIEVE_OVERALL_RANKING() {
     when(mEventRepo.findByPrettyName(anyString())).thenReturn(Optional.of(
-      new EventEntity(0, "Pretty Name", "pretty-name", 0, null, null, null, null, null)
+      new EventEntity(0, "Pretty Name", "pretty-name", 0, null, null, null)
     ));
 
     when(mSubsRepo.generateRanking(anyInt())).thenReturn(
@@ -69,7 +70,7 @@ public class SubscriptionRankingTests {
   @Test
   void RETRIEVE_RANKING_BY_USER() {
     when(mEventRepo.findByPrettyName(anyString())).thenReturn(Optional.of(
-      new EventEntity(0, "Pretty Name", "pretty-name", 0, null, null, null, null, null)
+      new EventEntity(0, "Pretty Name", "pretty-name", 0, null, null, null)
     ));
 
     when(mSubsRepo.generateRanking(anyInt())).thenReturn(
@@ -82,7 +83,7 @@ public class SubscriptionRankingTests {
   @Test
   void RETRIEVE_RANKING_BY_USER_NO_SUBSCRIPTION() {
     when(mEventRepo.findByPrettyName(anyString())).thenReturn(Optional.of(
-      new EventEntity(0, "Pretty Name", "pretty-name", 0, null, null, null, null, null)
+      new EventEntity(0, "Pretty Name", "pretty-name", 0, null, null, null)
     ));
 
     when(mSubsRepo.generateRanking(anyInt())).thenReturn(

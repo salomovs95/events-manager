@@ -37,10 +37,10 @@ public class EventController {
       EventEntity event = eventService.create(dto);
       return ResponseEntity.status(201).body(event);
     } catch(EventCreationException e) {
-      logg.error("Cannot create event. " + e.getStackTrace());
+      logg.error("Cannot create event. " + e);
       return ResponseEntity.status(400).body(new ErrorMessage(e.getMessage()));
     } catch(Exception e) {
-      logg.error("Cannot create event. " + e.getStackTrace());
+      logg.error("Cannot create event. " + e);
       return ResponseEntity.status(500).body(new ErrorMessage(e.getMessage()));
     }
   }
@@ -52,7 +52,6 @@ public class EventController {
 
   @GetMapping("/{prettyName}") @Operation(summary="Event Retrieval", description="Retrieves information about a given event.")
   public ResponseEntity<EventEntity> findEventByPrettyName(@PathVariable String prettyName) {
-    logg.info(String.format("Searching an event with params <prettyName: %s>", prettyName));
     EventEntity event = eventService.findEvent(prettyName).orElse(null);
     return ResponseEntity.status(event==null?404:200).body(event);
   }

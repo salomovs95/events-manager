@@ -71,7 +71,8 @@ public class SubscriptionService {
       .filter(sub->sub.userId().equals(userId))
       .findFirst()
       .orElseThrow(()->new SubscriptionNotFoundException(String.format("No subscription in event %s was found for user %d", prettyName, userId)));
-    
-    return new SubscriptionRankingByUser(1, rankingByUser);
+
+    Integer rankingPosition = overallRanking.indexOf(rankingByUser) + 1;
+    return new SubscriptionRankingByUser(rankingPosition, rankingByUser);
   }
 }
