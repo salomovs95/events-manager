@@ -127,7 +127,7 @@ spring:
     * Improves data validation
     * Improves exception handling
     * Improves testing coverage
-* 0.0.4 - Ranking between Events.
+* 0.0.4 - Ranking between Events.<br/>
   FEAT:
     * Adds support for Ranking between Events.
     * Improves API documentation with SpringDoc/OpenAPI (Available at [/swagger-ui.html route](.))
