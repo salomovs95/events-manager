@@ -130,7 +130,7 @@ spring:
 * 0.0.4 - Ranking between Events.
   FEAT:
     * Adds support for Ranking between Events.
-    * Improves API documentation with SpringDoc/OpenAPI
+    * Improves API documentation with SpringDoc/OpenAPI (Available at [/swagger-ui.html route](.))
     * Improves exception handling
     * Improves data validation
     * Other minor bugs fixes
