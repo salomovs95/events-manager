@@ -12,7 +12,6 @@
   <div>
     <img src="https://img.shields.io/badge/Spring%20Boot-6DB33F?logo=springboot&logoColor=fff&style=for-the-badge" alt="Java" />
     <img src="https://img.shields.io/badge/MySQL-316192?style=for-the-badge&logo=mysql&logoColor=white" alt="MySQL" />
-    <img src="https://img.shields.io/badge/Flyway-CC0200?logo=flyway&logoColor=fff&style=for-the-badge" alt="Flyway" />
     <img src="https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=fff&style=for-the-badge" alt="Docker" />
   </div>
 <br/><br/>
@@ -52,14 +51,14 @@
 
 ## <a name="tech-stack">⚙️ Tech Stack</a>
 
-- [Java](https://www.java.com/en/)
+- [Java 17](https://www.java.com/en/)
 - [Maven](https://maven.apache.org)
 - [Spring Boot](https://spring.io/projects/spring-boot)
 - [JUnit5](https://junit.org/junit5/)
-- [Thymeleaf](https://www.thymeleaf.org/)
 - [Spring JPA](https://spring.io/projects/spring-data-jpa)
 - [MySQL](https://mysql.com)
 - [Docker](https://www.docker.com/)
+- [SpringDoc (Swagger + OpenAPI)](https://springdoc.org/)
 
 
 ## <a name="quick-start">💻 Quick Start</a>
@@ -88,7 +87,7 @@ git clone https://github.com/salomovs95/events-manager && cd my-events-manager
 docker compose up -d
 ```
 ```bash
-./mvnw clean -Dmaven.skip.test spring-boot:run
+./mvnw clean -Dmaven.skip.tests spring-boot:run
 ```
 
 Now one can start making http request to [http://localhost:8080](http://localhost:8080), accordingly to _Controllers_ enpoints, using whatever Rest Client one may choose.
@@ -110,24 +109,32 @@ spring:
 
 ## <a name="versions">📅 Release History</a>
 
-* 0.0.1  - The initial release, Day 01.<br />
+* 0.0.1  - The initial release, NLW Day 01.<br />
   FEAT:
     * Project creation
     * Added Event creation support
     * Initial data validation
     * Initial testing coverage
-* 0.0.2  - Events subscription, Day 02.<br />
+* 0.0.2  - Events subscription, NLW Day 02.<br />
   FEAT:
     * Added Event subscription with (non-)existing user support
     * Exception handling support
     * Improves data validation
     * Improves testing coverage
-* 0.0.3 - Latest release, Day 03.<br/>
+* 0.0.3 - Rankings, NLW Day 03.<br/>
   FEAT:
     * Added Event ranking support
     * Improves data validation
     * Improves exception handling
     * Improves testing coverage
+* 0.0.4 - Ranking between Events.
+  FEAT:
+    * Adds support for Ranking between Events.
+    * Improves API documentation with SpringDoc/OpenAPI
+    * Improves exception handling
+    * Improves data validation
+    * Other minor bugs fixes
+
 
 ## <a name="contributing">🤝 Contributing</a>
 

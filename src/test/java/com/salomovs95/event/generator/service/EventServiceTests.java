@@ -22,6 +22,7 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import com.salomovs95.event.generator.dto.CreateEventDto;
 import com.salomovs95.event.generator.entity.EventEntity;
 import com.salomovs95.event.generator.exception.EventCreationException;
+import com.salomovs95.event.generator.exception.EventNotFoundException;
 import com.salomovs95.event.generator.repository.EventRepository;
 
 @Tag("EVENT_TESTS")
@@ -81,7 +82,7 @@ class EventServiceTests {
   }
 
   @Test
-  void FIND_EVENT_BY_PRETTY_NAME_SUCCEEDS() {
+  void FIND_EVENT_BY_PRETTY_NAME_SUCCEEDS() throws Exception {
     when(eMockRepository.findByPrettyName(anyString())).thenReturn(Optional.of(new EventEntity(
       19884382,
       "Event Title One",
@@ -91,12 +92,13 @@ class EventServiceTests {
       LocalDate.now().plusDays(7),
       LocalDate.now().plusDays(12)
     )));
-    assertTrue(eService.findEvent("event-title-one").isPresent());
+    assertTrue(eService.findEvent("event-title-one") != null);
   }
 
   @Test
   void FIND_EVENT_BY_PRETTY_NAME_FAILS() {
-    assertTrue(eService.findEvent("event-title-one").isEmpty());
+    EventNotFoundException ex = assertThrows(EventNotFoundException.class, ()->eService.findEvent("event-title-one"));
+    assertTrue(ex.getMessage().startsWith("No event was found with"));
   }
 
   @Test
