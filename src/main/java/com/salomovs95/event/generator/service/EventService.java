@@ -22,7 +22,7 @@ public class EventService {
     this.eventRepository = repository;
   }
 
-  public EventEntity create(CreateEventDto dto) throws Exception {
+  public EventEntity create(CreateEventDto dto) throws EventCreationException {
     if (dto == null) throw new EventCreationException("Invalid data provided");
 
     final LocalDate startDate = dto.startDate(), endDate = dto.endDate();
@@ -45,7 +45,7 @@ public class EventService {
     return eventRepository.save(eventPrototype);
   }
 
-  public EventEntity findEvent(Integer eventId) throws Exception {
+  public EventEntity findEvent(Integer eventId) throws EventNotFoundException {
     EventEntity event = eventRepository.findById(eventId).orElseThrow(
       ()->new EventNotFoundException(String.format("No event was found with id {%d}", eventId))
     );
@@ -53,7 +53,7 @@ public class EventService {
     return event;
   }
 
-  public EventEntity findEvent(String prettyName) throws Exception {
+  public EventEntity findEvent(String prettyName) throws EventNotFoundException {
     EventEntity event = eventRepository.findByPrettyName(prettyName).orElseThrow(
       ()->new EventNotFoundException(String.format("No event was found with prettyName {%s}", prettyName))
     );
