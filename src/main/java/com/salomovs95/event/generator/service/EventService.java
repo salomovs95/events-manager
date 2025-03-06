@@ -26,6 +26,7 @@ public class EventService {
     if (dto == null) throw new EventCreationException("Invalid data provided");
 
     final LocalDate startDate = dto.startDate(), endDate = dto.endDate();
+    if (startDate.atStartOfDay(ZoneId.systemDefault()).isBefore(LocalDate.now().atStartOfDay(ZoneId.systemDefault()))) throw new EventCreationException("Invalid event period");
     if (startDate.atStartOfDay(ZoneId.systemDefault()).isAfter(endDate.atStartOfDay(ZoneId.systemDefault()))) throw new EventCreationException("Invalid event period");
 
     String prettyName = dto.title().toLowerCase().replaceAll(" ", "-");
