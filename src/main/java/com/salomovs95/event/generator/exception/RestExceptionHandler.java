@@ -19,30 +19,30 @@ public class RestExceptionHandler {
   @ExceptionHandler(EventNotFoundException.class)
   public ResponseEntity<ErrorMessage> handleException(EventNotFoundException e) {
     logg.error("EVENT NOT FOUND # " + e.getMessage());
-    return ResponseEntity.status(404).body(new ErrorMessage(e.getMessage(), e.getClass().getName()));
+    return ResponseEntity.status(404).body(new ErrorMessage(e.getMessage(), e.getClass().getName().replace("com.salomovs95.event.generator.exception.","")));
   }
 
   @ExceptionHandler(SubscriptionNotFoundException.class)
   public ResponseEntity<ErrorMessage> handleException(SubscriptionNotFoundException e) {
     logg.error("SUBSCRIPTION NOT FOUND # " + e.getMessage());
-    return ResponseEntity.status(404).body(new ErrorMessage(e.getMessage(), e.getClass().getName()));
+    return ResponseEntity.status(404).body(new ErrorMessage(e.getMessage(), e.getClass().getName().replace("com.salomovs95.event.generator.exception.","")));
   }
 
   @ExceptionHandler(EventCreationException.class)
   public ResponseEntity<ErrorMessage> handleException(EventCreationException e) {
     logg.error("CANT CREATE EVENT # " + e.getMessage());
-    return ResponseEntity.status(400).body(new ErrorMessage(e.getMessage(), e.getClass().getName()));
+    return ResponseEntity.status(400).body(new ErrorMessage(e.getMessage(), e.getClass().getName().replace("com.salomovs95.event.generator.exception.","")));
   }
 
   @ExceptionHandler(SubscriptionAlreadyExistsException.class)
   public ResponseEntity<ErrorMessage> handleException(SubscriptionAlreadyExistsException e) {
     logg.error("BAD REQUEST # " + e.getMessage());
-    return ResponseEntity.status(400).body(new ErrorMessage(e.getMessage(), e.getClass().getName()));
+    return ResponseEntity.status(400).body(new ErrorMessage(e.getMessage(), e.getClass().getName().replace("com.salomovs95.event.generator.exception.","")));
   }
 
   @ExceptionHandler(Exception.class)
   public ResponseEntity<ErrorMessage> handleException(Exception e) {
     logg.error("INTERNAL ERROR # ", e.getMessage());
-    return ResponseEntity.status(500).body(new ErrorMessage(e.getMessage(), e.getClass().getName()));
+    return ResponseEntity.status(500).body(new ErrorMessage(e.getMessage(), e.getClass().getName().replace("com.salomovs95.event.generator.exception.","")));
   }
 }
