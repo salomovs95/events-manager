@@ -34,7 +34,7 @@ public class SubscriptionService {
     this.subscriptionRepo = sRepository;
   }
 
-  public SubscriptionResponse subscribe(String eventPrettyName, Integer referralId, String subscriberName, String subscriberEmail) throws Exception {
+  public SubscriptionResponse subscribe(String eventPrettyName, Integer referralId, String subscriberName, String subscriberEmail) throws SubscriptionAlreadyExistsException {
     EventEntity event = eventRepo.findByPrettyName(eventPrettyName).orElseThrow(()->new EventNotFoundException(String.format("Event not found with pretty name: %s", eventPrettyName)));
     
     UserEntity subscriber = userRepo.findByEmail(subscriberEmail)
@@ -57,14 +57,19 @@ public class SubscriptionService {
     return new SubscriptionResponse(subscription.getSubscriptionNumber(), referralLink);
   }
 
-  public List<SubscriptionRankingItem> retrieveRanking(String prettyName) throws Exception {
-    EventEntity event = eventRepo.findByPrettyName(prettyName)
+  public List<SubscriptionRankingItem> retrieveRanking(String prettyName) throws EventNotFoundException {
+    EventEntity event = eventRepo
+      .findByPrettyName(prettyName)
       .orElseThrow(()->new EventNotFoundException(String.format("Event %s not found", prettyName)));
     
     return subscriptionRepo.generateRanking(event.getId());
   }
 
-  public SubscriptionRankingByUser retrieveRankingByUser(String prettyName, Integer userId) throws Exception {
+  public SubscriptionRankingByUser retrieveRankingByUser(String prettyName, Integer userId) throws EventNotFoundException, SubscriptionNotFoundException {
+    eventRepo
+      .findByPrettyName(prettyName)
+      .orElseThrow(()->new EventNotFoundException(String.format("Event <%s> not found", prettyName)));
+    
     List<SubscriptionRankingItem> overallRanking = retrieveRanking(prettyName);
     SubscriptionRankingItem rankingByUser = overallRanking
       .stream()
