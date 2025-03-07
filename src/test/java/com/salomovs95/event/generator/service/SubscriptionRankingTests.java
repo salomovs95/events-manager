@@ -99,6 +99,6 @@ public class SubscriptionRankingTests {
     when(mEventRepo.findByPrettyName(anyString())).thenReturn(Optional.empty());
     
     EventNotFoundException ex = assertThrows(EventNotFoundException.class, ()->subService.retrieveRankingByUser("pretty-name", 0));
-    assertEquals("Event pretty-name not found", ex.getMessage());
+    assertEquals("Event <pretty-name> not found", ex.getMessage());
   }
 }

@@ -75,8 +75,8 @@ class EventServiceTests {
       "Event Title Three",
       3999,
       "Santa Luzia - Parana / Brazil",
-      LocalDate.now().plusDays(3),
-      LocalDate.now().plusDays(12));
+      LocalDate.now().plusDays(6),
+      LocalDate.now().plusDays(3));
     Exception exception = assertThrows(Exception.class, ()->eService.create(mDto));
     assertEquals("Invalid event period", exception.getMessage());
   }
