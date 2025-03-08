@@ -2,7 +2,7 @@ FROM ubuntu as build
 WORKDIR /app
 COPY pom.xml ./pom.xml
 COPY src/ ./src/
-RUN sudo apt-get install openjdk-17-jdk maven && \
+RUN apt-get install openjdk-17-jdk maven && \
     mvn clean -DskipTests install
 
 FROM openjdk:17-ea-5-jdk-alpine
