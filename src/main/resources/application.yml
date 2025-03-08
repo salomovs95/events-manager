@@ -3,9 +3,16 @@ spring:
     name: Event Generator
 
   profiles:
-    active: develop
+    active: ${SPRING_APPLICATION_PROFILE:production}
+
+  datasource:
+    url: jdbc:mysql://${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
 
   jpa:
+    hibernate:
+      ddl-auto: validate
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
