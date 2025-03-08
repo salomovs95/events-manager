@@ -6,7 +6,7 @@ spring:
     active: ${SPRING_APPLICATION_PROFILE:production}
 
   datasource:
-    url: jdbc:mysql://${DB_URL}
+    url: jdbc:${DB_URL}
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
 
