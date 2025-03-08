@@ -10,14 +10,6 @@ jobs:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
-      #- uses: actions/checkout@v4
-      #- name: Set up JDK 17
-      #  uses: actions/setup-java@v4
-      #  with:
-      #    java-version: '17'
-      #    distribution: 'temurin'
-      #    architecture: x64
-      #    cache: 'maven'
-      - name: Testing echo
-        run: |
-             echo 'PR Merged'
+      - uses: actions/checkout@v4
+      - name: Build Image
+        run: docker build -t salomovs95/event-manager .
